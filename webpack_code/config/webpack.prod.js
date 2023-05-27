@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 // 获取处理样式的Loaders
 const getStyleLoaders = (preProcessor) => {
@@ -102,7 +103,9 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename:'static/css/main.css'
-        })
+        }),
+        // css压缩
+        new CssMinimizerPlugin(),
     ],
     mode:'production'
     // 模式
