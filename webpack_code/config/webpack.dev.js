@@ -5,14 +5,13 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
     // 入口
-    entry:'./src/main.js',
+    entry:'./src/main.js',// 相对路径
     // 输出
     output:{
         // 文件的输出路径
-        // __dirname代表当前文件的文件夹目录
-        path:path.resolve(__dirname,'dist'),
-        filename:'static/js/main.js',
-        clean:true
+        // 开发模式没输出
+        path:undefined,
+        filename:'static/js/main.js'
     },
     // 加载器
     module:{
@@ -98,10 +97,10 @@ module.exports = {
     plugins: [
         new ESLintPlugin({
         // 检测哪些文件
-        context:path.resolve(__dirname,'src')
+        context:path.resolve(__dirname,'../src')
     })
         ,new HtmlWebpackPlugin({
-            template:path.resolve(__dirname,'public/index.html')
+            template:path.resolve(__dirname,'../public/index.html')
         })
     ],
     // 开发服务器
@@ -111,6 +110,5 @@ module.exports = {
         open:true
     },
     mode:'development'
-
     // 模式
 }
