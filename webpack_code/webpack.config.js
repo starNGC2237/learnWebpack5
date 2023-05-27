@@ -1,3 +1,4 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
@@ -79,13 +80,36 @@ module.exports = {
                     filename: "static/media/[hash:10][ext][query]",
                 },
             },
+            {
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                  loader: 'babel-loader',
+                    /*
+                    * options: {
+                    presets: ['@babel/preset-env']
+                  }
+                    * */
+                }
+            }
         ]
     },
     // 插件
-    plugins: [new ESLintPlugin({
+    plugins: [
+        new ESLintPlugin({
         // 检测哪些文件
         context:path.resolve(__dirname,'src')
-    })],
+    })
+        ,new HtmlWebpackPlugin({
+            template:path.resolve(__dirname,'public/index.html')
+        })
+    ],
+    // 开发服务器
+    devServer:{
+        host:'localhost',
+        port:'3000',
+        open:true
+    },
     mode:'development'
 
     // 模式
